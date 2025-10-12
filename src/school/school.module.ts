@@ -8,22 +8,10 @@ import { Post, PostSchema } from './schemas/post.schema';
 @Module({
     imports: [
         MongooseModule.forFeature([
-            {
-                name: Docente.name,
-                schema: DocenteSchema
-            },
-            {
-                name: Aluno.name,
-                schema: AlunoSchema
-            },
-            {
-                name: Turma.name,
-                schema: TurmaSchema
-            },
-            {
-                name: Post.name,
-                schema: PostSchema
-            },
+            { name: Docente.name, schema: DocenteSchema },
+            { name: Aluno.name, schema: AlunoSchema },
+            { name: Turma.name, schema: TurmaSchema },
+            { name: Post.name, schema: PostSchema },
         ]),
     ],
 })
