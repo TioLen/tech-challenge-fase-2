@@ -1,7 +1,7 @@
 import { Injectable } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { Model } from "mongoose";
-import { ITurma } from "../../schemas/models/turma.interface";
+import { ITurma } from "@/school/schemas/models/turma.interface";
 import { Turma, TurmaDocument } from "src/school/schemas/turma.schema";
 import { TurmaRepository } from "../turma.repository";
 

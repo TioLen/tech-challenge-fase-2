@@ -1,7 +1,7 @@
 import { Injectable } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { Model } from "mongoose";
-import { IPost } from "src/school/schemas/models/post.interface";
+import { IPost } from "@/school/schemas/models/post.interface";
 import { Post, PostDocument } from "src/school/schemas/post.schema";
 import { PostRepository } from "../post.repository";
 

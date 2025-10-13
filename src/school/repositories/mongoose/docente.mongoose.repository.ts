@@ -1,7 +1,7 @@
 import { Injectable } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { Model } from "mongoose";
-import { IDocente } from "src/school/schemas/models/docente.interface";
+import { IDocente } from "@/school/schemas/models/docente.interface";
 import { Docente, DocenteDocument } from "src/school/schemas/docente.schema";
 import { DocenteRepository } from "../docente.repository";
 

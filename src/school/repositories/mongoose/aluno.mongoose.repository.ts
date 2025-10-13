@@ -1,7 +1,7 @@
 import { Injectable } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { Model } from "mongoose";
-import { IAluno } from "src/school/schemas/models/aluno.interface";
+import { IAluno } from "@/school/schemas/models/aluno.interface";
 import { Aluno, AlunoDocument } from "src/school/schemas/aluno.schema";
 import { AlunoRepository } from "../aluno.repository";
 
