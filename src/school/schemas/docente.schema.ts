@@ -14,6 +14,7 @@ export class Docente {
   @Prop({ required: true })
   materia: string;
 
+  // Quebramos o ciclo referenciando 'Turma' como uma string.
   @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Turma' }] })
   turmas: mongoose.Types.ObjectId[];
 }
