@@ -1,6 +1,5 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import mongoose, { HydratedDocument } from 'mongoose';
-import { Aluno } from './aluno.schema';
 import { Docente } from './docente.schema';
 
 export type TurmaDocument = HydratedDocument<Turma>;
@@ -14,7 +13,7 @@ export class Turma {
   teachers: Docente[];
 
   @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Aluno' }] })
-  students: Aluno[];
+  students: mongoose.Types.ObjectId[];
 }
 
 export const TurmaSchema = SchemaFactory.createForClass(Turma);
