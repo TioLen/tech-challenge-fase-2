@@ -13,20 +13,23 @@ export class DocenteRepositoryMongo implements DocenteRepository {
 
     async createDocente(docente: IDocente): Promise<IDocente> {
         const novoDocente = new this.docenteModel(docente);
-        return novoDocente.save();
+        return (await novoDocente.save()).toObject() as unknown as IDocente;
     }
     
     async getDocenteById(docenteId: string): Promise<IDocente | null> {
-        return this.docenteModel.findById(docenteId).exec();
+        const docente = await this.docenteModel.findById(docenteId).exec();
+        return docente ? docente.toObject() as unknown as IDocente : null;
     }
 
     async getAllDocentes(limit: number, page: number): Promise<IDocente[]> {
         const offset = (page - 1) * limit;
-        return this.docenteModel.find().skip(offset).limit(limit).exec();
+        const docentes = await this.docenteModel.find().skip(offset).limit(limit).exec();
+        return docentes.map(docente => docente.toObject() as unknown as IDocente);
     }
 
     async updateDocente(docenteId: string, data: Partial<IDocente>): Promise<IDocente | null> {
-        return this.docenteModel.findByIdAndUpdate(docenteId, data, { new: true }).exec();
+        const docente = await this.docenteModel.findByIdAndUpdate(docenteId, data, { new: true }).exec();
+        return docente ? docente.toObject() as unknown as IDocente : null;
     }
 
     async deleteDocente(docenteId: string): Promise<void> {

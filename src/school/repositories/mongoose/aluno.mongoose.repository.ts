@@ -13,25 +13,30 @@ export class AlunoRepositoryMongo implements AlunoRepository {
 
     async createAluno(aluno: IAluno): Promise<IAluno> {
         const novoAluno = new this.alunoModel(aluno);
-        return novoAluno.save();
+        const savedAluno = await novoAluno.save();
+        return savedAluno.toObject() as unknown as IAluno;
     }
 
     async getAlunoById(alunoId: string): Promise<IAluno | null> {
-        return this.alunoModel.findById(alunoId).exec();
+        const aluno = await this.alunoModel.findById(alunoId).populate('turma').exec();
+        return aluno ? aluno.toObject() as unknown as IAluno : null;
     }
 
     async getAllAlunos(limit: number, page: number): Promise<IAluno[]> {
         const offset = (page - 1) * limit;
-        return this.alunoModel.find().skip(offset).limit(limit).exec();
+        const alunos = await this.alunoModel.find().skip(offset).limit(limit).populate('turma').exec();
+        return alunos.map(aluno => aluno.toObject() as unknown as IAluno);
     }
 
     async getAlunosByTurma(turmaId: string, limit: number, page: number): Promise<IAluno[]> {
         const offset = (page - 1) * limit;
-        return this.alunoModel.find({ turma: turmaId }).skip(offset).limit(limit).exec();
+        const alunos = await this.alunoModel.find({ turma: turmaId }).skip(offset).limit(limit).exec();
+        return alunos.map(aluno => aluno.toObject() as unknown as IAluno);
     }
     
     async updateAluno(alunoId: string, data: Partial<IAluno>): Promise<IAluno | null> {
-        return this.alunoModel.findByIdAndUpdate(alunoId, data, { new: true }).exec();
+        const aluno = await this.alunoModel.findByIdAndUpdate(alunoId, data, { new: true }).populate('turma').exec();
+        return aluno ? aluno.toObject() as unknown as IAluno : null;
     }
 
     async deleteAluno(alunoId: string): Promise<void> {

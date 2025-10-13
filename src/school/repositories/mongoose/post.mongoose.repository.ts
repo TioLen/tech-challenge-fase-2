@@ -13,30 +13,35 @@ export class PostRepositoryMongo implements PostRepository {
     
     async createPost(post: IPost): Promise<IPost> {
         const novoPost = new this.postModel(post);
-        return novoPost.save();
+        return (await novoPost.save()).toObject() as unknown as IPost;
     }
 
     async getPostById(postId: string): Promise<IPost | null> {
-        return this.postModel.findById(postId).exec();
+        const post = await this.postModel.findById(postId).exec();
+        return post ? post.toObject() as unknown as IPost : null;
     }
 
     async getAllPosts(limit: number, page: number): Promise<IPost[]> {
         const offset = (page - 1) * limit;
-        return this.postModel.find().skip(offset).limit(limit).exec();
+        const posts = await this.postModel.find().skip(offset).limit(limit).exec();
+        return posts.map(post => post.toObject() as unknown as IPost);
     }
 
     async getPostsByDocente(docenteId: string, limit: number, page: number): Promise<IPost[]> {
         const offset = (page - 1) * limit;
-        return this.postModel.find({ autor: docenteId }).skip(offset).limit(limit).exec();
+        const posts = await this.postModel.find({ autor: docenteId }).skip(offset).limit(limit).exec();
+        return posts.map(post => post.toObject() as unknown as IPost);
     }
 
     async getPostsByStatus(status: "publicado" | "rascunho", limit: number, page: number): Promise<IPost[]> {
         const offset = (page - 1) * limit;
-        return this.postModel.find({ status: status }).skip(offset).limit(limit).exec();
+        const posts = await this.postModel.find({ status: status }).skip(offset).limit(limit).exec();
+        return posts.map(post => post.toObject() as unknown as IPost);
     }
 
     async updatePost(postId: string, data: Partial<IPost>): Promise<IPost | null> {
-        return this.postModel.findByIdAndUpdate(postId, data, { new: true }).exec();
+        const post = await this.postModel.findByIdAndUpdate(postId, data, { new: true }).exec();
+        return post ? post.toObject() as unknown as IPost : null;
     }
 
     async deletePost(postId: string): Promise<void> {

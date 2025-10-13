@@ -13,20 +13,23 @@ export class TurmaRepositoryMongo implements TurmaRepository {
 
     async createTurma(turma: ITurma): Promise<ITurma> {
         const novaTurma = new this.turmaModel(turma);
-        return novaTurma.save();
+        return (await novaTurma.save()).toObject() as unknown as ITurma;
     }
 
     async getTurmaById(turmaId: string): Promise<ITurma | null> {
-        return this.turmaModel.findById(turmaId).exec();
+        const turma = await this.turmaModel.findById(turmaId).exec();
+        return turma ? turma.toObject() as unknown as ITurma : null;
     }
 
     async getAllTurmas(limit: number, page: number): Promise<ITurma[]> {
         const offset = (page - 1) * limit;
-        return this.turmaModel.find().skip(offset).limit(limit).exec();
+        const turmas = await this.turmaModel.find().skip(offset).limit(limit).exec();
+        return turmas.map(turma => turma.toObject() as unknown as ITurma);
     }
 
     async updateTurma(turmaId: string, data: Partial<ITurma>): Promise<ITurma | null> {
-        return this.turmaModel.findByIdAndUpdate(turmaId, data, { new: true }).exec();
+        const turma = await this.turmaModel.findByIdAndUpdate(turmaId, data, { new: true }).exec();
+        return turma ? turma.toObject() as unknown as ITurma : null;
     }
 
     async deleteTurma(turmaId: string): Promise<void> {
@@ -34,18 +37,20 @@ export class TurmaRepositoryMongo implements TurmaRepository {
     }
     
     async addDocenteToTurma(turmaId: string, docenteId: string): Promise<ITurma | null> {
-        return this.turmaModel.findByIdAndUpdate(
+        const turma = await this.turmaModel.findByIdAndUpdate(
             turmaId,
             { $addToSet: { teachers: docenteId } },
             { new: true },
         ).exec();
+        return turma ? turma.toObject() as unknown as ITurma : null;
     }
     
     async addAlunoToTurma(turmaId: string, alunoId: string): Promise<ITurma | null> {
-        return this.turmaModel.findByIdAndUpdate(
+        const turma = await this.turmaModel.findByIdAndUpdate(
             turmaId,
             { $addToSet: { students: alunoId } },
             { new: true },
         ).exec();
+        return turma ? turma.toObject() as unknown as ITurma : null;
     }
 }
