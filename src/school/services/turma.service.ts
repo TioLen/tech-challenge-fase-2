@@ -18,8 +18,8 @@ export class TurmaService {
     return this.turmaRepository.getTurmaById(id);
   }
 
-  async update(id: string, updateTurmaDto: Partial<ITurma>): Promise<ITurma | null> {
-    return this.turmaRepository.updateTurma(id, updateTurmaDto);
+  async update(id: string, updateTurmaData: Partial<ITurma>): Promise<ITurma | null> {
+    return this.turmaRepository.updateTurma(id, updateTurmaData);
   }
 
   async remove(id: string): Promise<void> {

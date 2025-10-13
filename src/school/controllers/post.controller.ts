@@ -1,14 +1,19 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query, UsePipes } from '@nestjs/common';
 import { PostService } from '../services/post.service';
-import { CreatePostDto } from '../dto/create-post.dto';
+import { CreatePostSchema, UpdatePostSchema, ZodValidationPipe, type CreatePostData, type UpdatePostData } from '../../shared';
 
 @Controller('posts')
 export class PostController {
   constructor(private readonly postService: PostService) {}
 
   @Post()
-  create(@Body() createPostDto: CreatePostDto) {
-    return this.postService.create(createPostDto as any);
+  @UsePipes(new ZodValidationPipe(CreatePostSchema))
+  create(@Body() createPostData: CreatePostData) {
+    const postData = {
+      ...createPostData,
+      autor: createPostData.autor as any,
+    };
+    return this.postService.create(postData as any);
   }
 
   @Get()
@@ -22,8 +27,13 @@ export class PostController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updatePostDto: Partial<CreatePostDto>) {
-    return this.postService.update(id, updatePostDto as any);
+  @UsePipes(new ZodValidationPipe(UpdatePostSchema))
+  update(@Param('id') id: string, @Body() updatePostData: UpdatePostData) {
+    const postData = {
+      ...updatePostData,
+      autor: updatePostData.autor as any,
+    };
+    return this.postService.update(id, postData as any);
   }
 
   @Delete(':id')

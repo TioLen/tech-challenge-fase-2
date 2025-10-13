@@ -22,8 +22,8 @@ export class AlunoService {
     return this.alunoRepository.getAlunoById(id);
   }
 
-  async update(id: string, updateAlunoDto: Partial<IAluno>): Promise<IAluno | null> {
-    return this.alunoRepository.updateAluno(id, updateAlunoDto);
+  async update(id: string, updateAlunoData: Partial<IAluno>): Promise<IAluno | null> {
+    return this.alunoRepository.updateAluno(id, updateAlunoData);
   }
 
   async remove(id: string): Promise<void> {

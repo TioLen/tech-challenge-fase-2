@@ -26,8 +26,8 @@ export class PostService {
     return this.postRepository.getPostsByStatus(status, limit, page);
   }
 
-  async update(id: string, updatePostDto: Partial<IPost>): Promise<IPost | null> {
-    return this.postRepository.updatePost(id, updatePostDto);
+  async update(id: string, updatePostData: Partial<IPost>): Promise<IPost | null> {
+    return this.postRepository.updatePost(id, updatePostData);
   }
 
   async remove(id: string): Promise<void> {
