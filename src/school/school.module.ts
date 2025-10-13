@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Module, forwardRef } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { Docente, DocenteSchema } from './schemas/docente.schema';
 import { Aluno, AlunoSchema } from './schemas/aluno.schema';
@@ -14,5 +14,7 @@ import { Post, PostSchema } from './schemas/post.schema';
             { name: Post.name, schema: PostSchema },
         ]),
     ],
+    // Adicione esta seção de exports se ela não existir
+    exports: [MongooseModule]
 })
 export class SchoolModule {}
