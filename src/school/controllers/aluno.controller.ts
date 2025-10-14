@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Query, UsePipes } from '@nestjs/common';
+import { Controller, Get, Post, Body, Put, Param, Delete, Query } from '@nestjs/common';
 import { AlunoService } from '../services/aluno.service';
 import { CreateAlunoSchema, UpdateAlunoSchema, ZodValidationPipe, type CreateAlunoData, type UpdateAlunoData } from '../../shared';
 
@@ -7,8 +7,7 @@ export class AlunoController {
   constructor(private readonly alunoService: AlunoService) {}
 
   @Post()
-  @UsePipes(new ZodValidationPipe(CreateAlunoSchema))
-  create(@Body() createAlunoData: CreateAlunoData) {
+  create(@Body(new ZodValidationPipe(CreateAlunoSchema)) createAlunoData: CreateAlunoData) {
     const alunoData = {
       ...createAlunoData,
       turma: createAlunoData.turma as any,
@@ -26,9 +25,11 @@ export class AlunoController {
     return this.alunoService.findOne(id);
   }
 
-  @Patch(':id')
-  @UsePipes(new ZodValidationPipe(UpdateAlunoSchema))
-  update(@Param('id') id: string, @Body() updateAlunoData: UpdateAlunoData) {
+  @Put(':id')
+  update(
+    @Param('id') id: string,
+    @Body(new ZodValidationPipe(UpdateAlunoSchema)) updateAlunoData: UpdateAlunoData,
+  ) {
     const alunoData = {
       ...updateAlunoData,
       turma: updateAlunoData.turma as any,

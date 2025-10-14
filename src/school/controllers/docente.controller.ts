@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Query, UsePipes } from '@nestjs/common';
+import { Controller, Get, Post, Body, Put, Param, Delete, Query } from '@nestjs/common';
 import { DocenteService } from '../services/docente.service';
 import { CreateDocenteSchema, UpdateDocenteSchema, ZodValidationPipe, type CreateDocenteData, type UpdateDocenteData } from '../../shared';
 
@@ -7,8 +7,7 @@ export class DocenteController {
   constructor(private readonly docenteService: DocenteService) {}
 
   @Post()
-  @UsePipes(new ZodValidationPipe(CreateDocenteSchema))
-  create(@Body() createDocenteData: CreateDocenteData) {
+  create(@Body(new ZodValidationPipe(CreateDocenteSchema)) createDocenteData: CreateDocenteData) {
     return this.docenteService.create(createDocenteData);
   }
 
@@ -22,9 +21,11 @@ export class DocenteController {
     return this.docenteService.findOne(id);
   }
 
-  @Patch(':id')
-  @UsePipes(new ZodValidationPipe(UpdateDocenteSchema))
-  update(@Param('id') id: string, @Body() updateDocenteData: UpdateDocenteData) {
+  @Put(':id')
+  update(
+    @Param('id') id: string,
+    @Body(new ZodValidationPipe(UpdateDocenteSchema)) updateDocenteData: UpdateDocenteData,
+  ) {
     return this.docenteService.update(id, updateDocenteData);
   }
 

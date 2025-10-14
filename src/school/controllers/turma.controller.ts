@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Query, UsePipes } from '@nestjs/common';
+import { Controller, Get, Post, Body, Put, Param, Delete, Query } from '@nestjs/common';
 import { TurmaService } from '../services/turma.service';
 import { CreateTurmaSchema, UpdateTurmaSchema, ZodValidationPipe, type CreateTurmaData, type UpdateTurmaData } from '../../shared';
 
@@ -7,8 +7,7 @@ export class TurmaController {
   constructor(private readonly turmaService: TurmaService) {}
 
   @Post()
-  @UsePipes(new ZodValidationPipe(CreateTurmaSchema))
-  create(@Body() createTurmaData: CreateTurmaData) {
+  create(@Body(new ZodValidationPipe(CreateTurmaSchema)) createTurmaData: CreateTurmaData) {
     return this.turmaService.create(createTurmaData);
   }
 
@@ -22,9 +21,11 @@ export class TurmaController {
     return this.turmaService.findOne(id);
   }
 
-  @Patch(':id')
-  @UsePipes(new ZodValidationPipe(UpdateTurmaSchema))
-  update(@Param('id') id: string, @Body() updateTurmaData: UpdateTurmaData) {
+  @Put(':id')
+  update(
+    @Param('id') id: string,
+    @Body(new ZodValidationPipe(UpdateTurmaSchema)) updateTurmaData: UpdateTurmaData,
+  ) {
     return this.turmaService.update(id, updateTurmaData);
   }
 
