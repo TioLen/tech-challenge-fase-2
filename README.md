@@ -1,7 +1,7 @@
 # 🎓 Tech Challenge Fase 2 - FIAP
 
-> Gabriel Sanz Sztochryn - RM365400
-> Bruno dos Santos Freitas - RM365563
+> Gabriel Sanz Sztochryn - RM365400 |
+> Bruno dos Santos Freitas - RM365563 |
 > Gabriel da Silva Barros - RM366408
 
 > Uma API para gestão escolar, no qual é possivel cadastrar docentes, alunos, turmar e os docentes publicarem posts, utilizando a base de dados MongoDB e NetsJS para a aplicação.
