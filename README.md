@@ -1,6 +1,10 @@
-# 🎓 School Management API
+# 🎓 Tech Challenge Fase 2 - FIAP
 
-> Uma API moderna e robusta para gestão escolar, desenvolvida com as melhores práticas de desenvolvimento e deploy automatizado.
+> Gabriel Sanz Sztochryn - RM365400
+> Bruno dos Santos Freitas - RM365563
+> Gabriel da Silva Barros - RM366408
+
+> Uma API para gestão escolar, no qual é possivel cadastrar docentes, alunos, turmar e os docentes publicarem posts, utilizando a base de dados MongoDB e NetsJS para a aplicação.
 
 Esta é uma API RESTful completa para gerenciar um sistema escolar, construída com **NestJS** e **MongoDB Atlas**. O projeto implementa validação de dados com **Zod**, testes automatizados, CI/CD com **GitHub Actions** e deploy via **Docker**.
 
