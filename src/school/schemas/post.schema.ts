@@ -12,7 +12,11 @@ export class Post {
   @Prop({ required: true })
   conteudo: string;
 
-  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Docente', required: true })
+  @Prop({
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Docente',
+    required: true,
+  })
   autor: Docente;
 
   @Prop({ default: 'rascunho' })

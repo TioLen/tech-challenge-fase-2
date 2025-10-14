@@ -17,16 +17,27 @@ export class PostService {
   async findOne(id: string): Promise<IPost | null> {
     return this.postRepository.getPostById(id);
   }
-  
-  async findByDocente(docenteId: string, limit: number, page: number): Promise<IPost[]> {
+
+  async findByDocente(
+    docenteId: string,
+    limit: number,
+    page: number,
+  ): Promise<IPost[]> {
     return this.postRepository.getPostsByDocente(docenteId, limit, page);
   }
 
-  async findByStatus(status: 'publicado' | 'rascunho', limit: number, page: number): Promise<IPost[]> {
+  async findByStatus(
+    status: 'publicado' | 'rascunho',
+    limit: number,
+    page: number,
+  ): Promise<IPost[]> {
     return this.postRepository.getPostsByStatus(status, limit, page);
   }
 
-  async update(id: string, updatePostData: Partial<IPost>): Promise<IPost | null> {
+  async update(
+    id: string,
+    updatePostData: Partial<IPost>,
+  ): Promise<IPost | null> {
     return this.postRepository.updatePost(id, updatePostData);
   }
 

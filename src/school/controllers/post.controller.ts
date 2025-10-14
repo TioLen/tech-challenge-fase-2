@@ -1,13 +1,31 @@
-import { Controller, Get, Post, Body, Put, Param, Delete, Query } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Put,
+  Param,
+  Delete,
+  Query,
+} from '@nestjs/common';
 import { PostService } from '../services/post.service';
-import { CreatePostSchema, UpdatePostSchema, ZodValidationPipe, type CreatePostData, type UpdatePostData } from '../../shared';
+import {
+  CreatePostSchema,
+  UpdatePostSchema,
+  ZodValidationPipe,
+  type CreatePostData,
+  type UpdatePostData,
+} from '../../shared';
 
 @Controller('posts')
 export class PostController {
   constructor(private readonly postService: PostService) {}
 
   @Post()
-  create(@Body(new ZodValidationPipe(CreatePostSchema)) createPostData: CreatePostData) {
+  create(
+    @Body(new ZodValidationPipe(CreatePostSchema))
+    createPostData: CreatePostData,
+  ) {
     const postData = {
       ...createPostData,
       autor: createPostData.autor as any,
@@ -16,7 +34,10 @@ export class PostController {
   }
 
   @Get()
-  findAll(@Query('limit') limit: string = '10', @Query('page') page: string = '1') {
+  findAll(
+    @Query('limit') limit: string = '10',
+    @Query('page') page: string = '1',
+  ) {
     return this.postService.findAll(parseInt(limit, 10), parseInt(page, 10));
   }
 
@@ -28,7 +49,8 @@ export class PostController {
   @Put(':id')
   update(
     @Param('id') id: string,
-    @Body(new ZodValidationPipe(UpdatePostSchema)) updatePostData: UpdatePostData,
+    @Body(new ZodValidationPipe(UpdatePostSchema))
+    updatePostData: UpdatePostData,
   ) {
     const postData = {
       ...updatePostData,

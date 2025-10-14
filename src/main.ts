@@ -7,6 +7,6 @@ async function bootstrap() {
 
   app.useGlobalFilters(new HttpExceptionFilter());
 
-  await app.listen(process.env.PORT ?? 3000);
+  void app.listen(process.env.PORT ?? 3000);
 }
 bootstrap();

@@ -18,7 +18,10 @@ export class DocenteService {
     return this.docenteRepository.getDocenteById(id);
   }
 
-  async update(id: string, updateDocenteData: Partial<IDocente>): Promise<IDocente | null> {
+  async update(
+    id: string,
+    updateDocenteData: Partial<IDocente>,
+  ): Promise<IDocente | null> {
     return this.docenteRepository.updateDocente(id, updateDocenteData);
   }
 

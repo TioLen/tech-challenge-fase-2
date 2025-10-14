@@ -7,7 +7,7 @@ export type DocenteDocument = HydratedDocument<Docente>;
 export class Docente {
   @Prop({ required: true })
   name: string;
-  
+
   @Prop()
   age: number;
 

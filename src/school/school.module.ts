@@ -30,50 +30,51 @@ import { PostController } from './controllers/post.controller';
 import { TurmaController } from './controllers/turma.controller';
 
 @Module({
-    imports: [
-        MongooseModule.forFeature([
-            { name: Docente.name, schema: DocenteSchema },
-            { name: Aluno.name, schema: AlunoSchema },
-            { name: Turma.name, schema: TurmaSchema },
-            { name: Post.name, schema: PostSchema },
-        ]),
-    ],
-    controllers: [ // Adicione os controllers aqui
-        AlunoController,
-        DocenteController,
-        PostController,
-        TurmaController,
-    ],
-    providers: [
-        // Services
-        AlunoService,
-        DocenteService,
-        PostService,
-        TurmaService,
-        // Repositories
-        {
-            provide: DocenteRepository,
-            useClass: DocenteRepositoryMongo,
-        },
-        {
-            provide: AlunoRepository,
-            useClass: AlunoRepositoryMongo,
-        },
-        {
-            provide: TurmaRepository,
-            useClass: TurmaRepositoryMongo,
-        },
-        {
-            provide: PostRepository,
-            useClass: PostRepositoryMongo,
-        },
-    ],
-    exports: [
-        // Exporte os serviços se precisar usá-los em outros módulos
-        AlunoService,
-        DocenteService,
-        PostService,
-        TurmaService,
-    ]
+  imports: [
+    MongooseModule.forFeature([
+      { name: Docente.name, schema: DocenteSchema },
+      { name: Aluno.name, schema: AlunoSchema },
+      { name: Turma.name, schema: TurmaSchema },
+      { name: Post.name, schema: PostSchema },
+    ]),
+  ],
+  controllers: [
+    // Adicione os controllers aqui
+    AlunoController,
+    DocenteController,
+    PostController,
+    TurmaController,
+  ],
+  providers: [
+    // Services
+    AlunoService,
+    DocenteService,
+    PostService,
+    TurmaService,
+    // Repositories
+    {
+      provide: DocenteRepository,
+      useClass: DocenteRepositoryMongo,
+    },
+    {
+      provide: AlunoRepository,
+      useClass: AlunoRepositoryMongo,
+    },
+    {
+      provide: TurmaRepository,
+      useClass: TurmaRepositoryMongo,
+    },
+    {
+      provide: PostRepository,
+      useClass: PostRepositoryMongo,
+    },
+  ],
+  exports: [
+    // Exporte os serviços se precisar usá-los em outros módulos
+    AlunoService,
+    DocenteService,
+    PostService,
+    TurmaService,
+  ],
 })
 export class SchoolModule {}

@@ -9,7 +9,9 @@ export class Turma {
   @Prop({ required: true })
   name: string;
 
-  @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: () => Docente.name }] })
+  @Prop({
+    type: [{ type: mongoose.Schema.Types.ObjectId, ref: () => Docente.name }],
+  })
   teachers: Docente[];
 
   @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Aluno' }] })

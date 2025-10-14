@@ -18,18 +18,21 @@ export class TurmaService {
     return this.turmaRepository.getTurmaById(id);
   }
 
-  async update(id: string, updateTurmaData: Partial<ITurma>): Promise<ITurma | null> {
+  async update(
+    id: string,
+    updateTurmaData: Partial<ITurma>,
+  ): Promise<ITurma | null> {
     return this.turmaRepository.updateTurma(id, updateTurmaData);
   }
 
   async remove(id: string): Promise<void> {
     await this.turmaRepository.deleteTurma(id);
   }
-  
+
   async addDocente(turmaId: string, docenteId: string): Promise<ITurma | null> {
     return this.turmaRepository.addDocenteToTurma(turmaId, docenteId);
   }
-  
+
   async addAluno(turmaId: string, alunoId: string): Promise<ITurma | null> {
     return this.turmaRepository.addAlunoToTurma(turmaId, alunoId);
   }
